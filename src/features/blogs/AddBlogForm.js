@@ -1,4 +1,7 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addBlog } from "./blogSlice";
 
 const initialState = {
   title: "",
@@ -7,6 +10,7 @@ const initialState = {
 };
 
 const AddBlogForm = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
 
   const { title, body, userId } = form;
@@ -22,16 +26,20 @@ const AddBlogForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (title && body) {
+      dispatch(addBlog({ id: nanoid(), title, body }));
+      setForm({ title: "", body: "" });
+    }
   };
 
   return (
     <section>
       <h2>Add Blog</h2>
       <form onSubmit={onSubmit}>
-        <label htmlFor="userId">User:</label>
+        {/* <label htmlFor="userId">User:</label>
         <select id="userId" value={userId} onChange={handleUser}>
           <option value=""></option>
-        </select>
+        </select> */}
         <label htmlFor="title">Title:</label>
         <input
           type="text"
