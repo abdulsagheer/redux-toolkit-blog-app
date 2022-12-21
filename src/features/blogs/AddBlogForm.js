@@ -1,4 +1,3 @@
-import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBlog } from "./blogSlice";
@@ -27,7 +26,7 @@ const AddBlogForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (title && body) {
-      dispatch(addBlog({ id: nanoid(), title, body }));
+      dispatch(addBlog({ title, body }));
       setForm({ title: "", body: "" });
     }
   };
